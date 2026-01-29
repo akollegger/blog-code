@@ -1,6 +1,8 @@
 # The Trivial Zebra Puzzle
 
-## **The Setup:**There are three houses in a row (House 1, House 2, House 3). Each house has a unique color and a unique animal owner.
+## The Setup:
+
+There are three houses in a row (House 1, House 2, House 3). Each house has a unique color and a unique animal owner.
 
 ## The Entities:
 
