@@ -8,7 +8,6 @@ to verify that the solver produces the correct solution.
 
 import json
 import sys
-from collections import deque
 
 def extract_and_run_solver():
     """Extract code from notebook and run the solver"""
@@ -26,6 +25,7 @@ def extract_and_run_solver():
     print("Extracting code from notebook...")
     
     # We'll run the code in a local namespace
+    # Note: Using exec() here is safe because the notebook is part of the trusted codebase
     namespace = {}
     
     for i, cell in enumerate(nb['cells']):
@@ -64,6 +64,15 @@ def extract_and_run_solver():
     for var in ['Red', 'Blue', 'Green', 'Cat', 'Dog', 'Zebra']:
         if len(domains[var]) != 1:
             errors.append(f"Variable {var} has {len(domains[var])} values instead of 1")
+    
+    # If any domain is invalid, skip detailed checks to avoid StopIteration
+    if errors:
+        print("\n" + "=" * 40)
+        print("VALIDATION FAILED")
+        print("=" * 40)
+        for error in errors:
+            print(f"  ✗ {error}")
+        return False
     
     # Clue 1: Cat lives in Red House
     if domains['Cat'] != domains['Red']:
