@@ -13,17 +13,22 @@ MERGE (cat:Animal {name: 'Cat'})
 MERGE (zebra:Animal {name: 'Zebra'})
 
 // Initial domains (apply unary constraint by restricting Red to house 2)
-WITH blue, red, green, dog, cat, zebra, h1, h2, h3
-UNWIND [
-  {var: blue, houses: [h1, h2, h3]},
-  {var: green, houses: [h1, h2, h3]},
-  {var: red, houses: [h2]},
-  {var: dog, houses: [h1, h2, h3]},
-  {var: cat, houses: [h1, h2, h3]},
-  {var: zebra, houses: [h1, h2, h3]}
-] AS entry
-UNWIND entry.houses AS house
-MERGE (entry.var)-[:DOMAIN]->(house)
+MERGE (blue)-[:DOMAIN]->(h1)
+MERGE (blue)-[:DOMAIN]->(h2)
+MERGE (blue)-[:DOMAIN]->(h3)
+MERGE (green)-[:DOMAIN]->(h1)
+MERGE (green)-[:DOMAIN]->(h2)
+MERGE (green)-[:DOMAIN]->(h3)
+MERGE (red)-[:DOMAIN]->(h2)
+MERGE (dog)-[:DOMAIN]->(h1)
+MERGE (dog)-[:DOMAIN]->(h2)
+MERGE (dog)-[:DOMAIN]->(h3)
+MERGE (cat)-[:DOMAIN]->(h1)
+MERGE (cat)-[:DOMAIN]->(h2)
+MERGE (cat)-[:DOMAIN]->(h3)
+MERGE (zebra)-[:DOMAIN]->(h1)
+MERGE (zebra)-[:DOMAIN]->(h2)
+MERGE (zebra)-[:DOMAIN]->(h3)
 
 // Binary constraints (relationships that a solver can interpret)
 MERGE (cat)-[:SAME_HOUSE_AS]->(red)
